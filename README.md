@@ -49,16 +49,26 @@ EXPOSE 5000
 * **FROM python:3.12.1-alpine3.19**
 
 I'll be using official Python image based on Alpine linux.
-Alpine Linux is low weight distribution that is perfect for containers
+**Alpine Linux** is low weight distribution that is perfect for containers
 But main difficulty with it is that you need to install all the packages 
 and app dependecies.
 
+* **WORKDIR /app**
 
+This will set working directory to /app in the container. All the shell commands will run there.
 
+* **COPY requirements.txt /app/requirements.txt**
 
+Copy the requirements file into the container. 
+>[!IMPORTANT]
+>You need to create **requirements.txt** file **prior** using ```pip freeze > requirements.txt``` in the app's folder.
 
+* **RUN pip install --no-cache-dir -r requirements.txt**
 
+Install any dependencies specified in requirements.txt.
 
+**Note** that we install all requirements before copying all the app into container.
+This will optimize container layers and potentially decrease time building.
 
 
 
