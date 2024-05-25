@@ -70,7 +70,12 @@ Install any dependencies specified in requirements.txt.
 **Note** that we install all requirements before copying all the app into container.
 This will optimize container layers and potentially decrease time building.
 
+* **COPY . /app**
 
+Copy the rest of the application code into the container
 
+* **CMD ["python", "app.py"]**
+
+This command runs the application.
 
 
