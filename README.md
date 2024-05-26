@@ -1,6 +1,6 @@
 # GitHub Actions Multi-Architecture Docker Image Build Test and Push to Dockerhub
 
-Recently I've been working with GitHub Actions on my project and I wanted to share knowledge that I've earned.
+Recently I've been working with GitHub Actions on my project and I wanted to share knowledge that I've gained.
 
 ## So, What we need?
 
@@ -111,8 +111,8 @@ Let's create it.
 ### Writing CI Pipeline
 First, let's talk about **Docker**. 
 
-Docker is using your current hardware for building it containers. So if you're working on **ARM/64**
-and want to run Docker images on **AMD/64** architecture you need to specify platform that Docker image 
+**Docker** is using your current hardware for building it's containers. So if you're working on **ARM/64**
+and want to run Docker images on **AMD/64** architecture you need to specify platform that **Docker** image 
 is created for. 
 
 In this **CI Pipeline** we will be using Github Action's ubuntu-latest image that is on **AMD/64** architecture
@@ -121,8 +121,10 @@ like most of **Linux** servers are.
 So we need to install **QEMU** - open-source hardware virtualization and emulation tool that will allow us to build also for **ARM/64**.
 
 >[!NOTE]
->This is just an option for images. If you don't need ARM/64 architecture, feel free not to install QEMU and not building for ARM/64.
+>This is just an option for images. If you don't need **ARM/64** architecture, feel free not to install **QEMU** and not building for **ARM/64**.
 >But it's nice thing to have multi-architecture image.
+
+
 
 
 
