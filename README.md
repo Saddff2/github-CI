@@ -49,9 +49,7 @@ EXPOSE 5000
 * **FROM python:3.12.1-alpine3.19**
 
 I'll be using official Python image based on Alpine linux.
-**Alpine Linux** is low weight distribution that is perfect for containers
-But main difficulty with it is that you need to install all the packages 
-and app dependecies.
+**Alpine Linux** is low-weight distribution that is perfect for containers.
 
 * **WORKDIR /app**
 
@@ -101,10 +99,6 @@ It will bound your 5001 port to 5000 container's port.
 <img width="944" alt="Screenshot 2024-05-26 at 16 42 12" src="https://github.com/Saddff2/github-CI/assets/133538823/6250a037-c500-4279-96ac-5621b1b4fcd2">
 
 
-It works so let's continue.
-
-
-
 
 ## **Create Dockerhub Account and Repository**
 
@@ -114,8 +108,6 @@ It works so let's continue.
 
 >[!NOTE]
 >You need to name the repository the same way as your docker image.
-
-All set up.
 
 ## **Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
@@ -147,9 +139,12 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 - On the left side click **Secrets and variables** -> **Actions**
 - Click **New repository secret**
 
-**In this workflow I'll be using 5 secrets**
+**In this workflow you'll need to define 2 Repository secrets**
 
-
+1. **DOCKER_USERNAME**  _for **value** write down your DOCKERHUB **Username**_
+2. **DOCKER_ACCESS_TOKEN** _for **value** create in DOCKERHUB Access Token **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
+ 
+And I'll be using 2 enviroment variables named **IMAGE_NAME** and **DOCKER_REGISTRY** that is declared directly in workflow file.
 
 
 
