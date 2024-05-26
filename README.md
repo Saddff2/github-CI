@@ -92,7 +92,10 @@ Run docker commands in folder to create an image.
 docker build -t flask-container:0.1 .
 docker run -p 5000:5000 flask-container:0.1
 ```
-If your port 5000 is not available try changing it to 5001 ```docker run -p 5001:5000 flask-container:0.1``` 
+If port 5000 is unavailable, you can change the local port, for example:
+
+```docker run -p 5001:5000 flask-container:0.1``` 
+
 It will bound your 5001 port to 5000 container's port.
 
 <img width="1068" alt="Screenshot 2024-05-26 at 11 02 01" src="https://github.com/Saddff2/github-CI/assets/133538823/f214f0fb-02e4-4cea-8931-c7dcc7ebfb1b">
@@ -122,7 +125,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 
 >[!NOTE]
 >This is just an option for images. If you don't need **ARM/64** architecture, feel free not to install **QEMU** and not building for **ARM/64**.
->But it's nice thing to have multi-architecture image.
+>But it's nice thing to have multi-platform image.
 
 
 
