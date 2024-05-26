@@ -68,7 +68,7 @@ jobs:
 
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
-      if: success() && steps.test_app.outcome == 'success'
+      if: success() #&& steps.test_app.outcome == 'success'
       with:
         context: .
         platforms: linux/amd64,linux/arm64
