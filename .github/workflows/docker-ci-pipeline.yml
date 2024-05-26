@@ -61,14 +61,14 @@ jobs:
         sleep 5
 
 
-   # - name: Test Web App
-   #   id: test_app
-   #    run:
-        
+    - name: Test Web App
+      id: test_app
+       run:
+         curl -sSf http://localhost:5000 || exit 1
 
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
-      if: success() #&& steps.test_app.outcome == 'success'
+      if: success() && steps.test_app.outcome == 'success'
       with:
         context: .
         platforms: linux/amd64,linux/arm64
