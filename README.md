@@ -76,6 +76,13 @@ Copy the rest of the application code into the container
 
 * **CMD ["python", "app.py"]**
 
-This command runs the application.
+This instruction runs the default command to run when the container starts.
+
+>[!NOTE]
+>**CMD** instruction can only be used once in Dockerfile, if you want to run other scripts while container is creating use **RUN** instruction.
+
+* **EXPOSE 5000**
+
+Expose the port that container runs on.
 
 
