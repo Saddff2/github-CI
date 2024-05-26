@@ -4,7 +4,7 @@ name: Build Test and Push Mutli Platform Docker Image
 on:
   push:
     branches:
-      - dev
+      - main
 
 env: 
   IMAGE_NAME: web-app
@@ -38,7 +38,7 @@ jobs:
         BUILD_NUMBER=$(git rev-parse --short HEAD)
         echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
 
-    - name: Build Multi Platform Container 
+    - name: Build AMD/64 Platform Container 
       uses: docker/build-push-action@v5
       with:
         context: .
