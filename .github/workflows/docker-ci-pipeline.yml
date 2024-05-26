@@ -50,7 +50,8 @@ jobs:
 
     - name: Run Container
       run: |
-        docker run -d -e BUILD_DATE=${{ env.BUILD_DATE }} \
+        docker run -d -p 5000:5000 \
+        -e BUILD_DATE=${{ env.BUILD_DATE }} \
         --name web-app-test \
         ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
 
