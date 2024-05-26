@@ -7,7 +7,7 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
 - **Python App** (or any app that you want)
 - **Dockerfile**
 - **Dockerhub account** (or any other container registry)
-- **Github Actins Workflow**
+- **Github Actions Workflow**
 
 ## Let's break down the steps.
 
