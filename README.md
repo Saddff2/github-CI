@@ -6,7 +6,7 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
 
 - **Python App** (or any app that you want)
 - **Dockerfile**
-- **Github Workflow**
+- **Github Actins Workflow**
 - **Dockerhub account** (or any other container registry)
 
 ## Let's break down the steps.
@@ -98,3 +98,12 @@ It will bound your 5001 port to 5000 container's port.
 <img width="1068" alt="Screenshot 2024-05-26 at 11 02 01" src="https://github.com/Saddff2/github-CI/assets/133538823/f214f0fb-02e4-4cea-8931-c7dcc7ebfb1b">
 
 It works so let's continue.
+
+## **Github Actions Workflow**
+**Creating CI Pipeline in GitHub Actions**
+
+First things first you need to create a directory .github/workflows in your github repository.
+
+Let's create it.
+
+
