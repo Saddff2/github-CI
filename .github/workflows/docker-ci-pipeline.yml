@@ -60,9 +60,9 @@ jobs:
         sleep 10
 
 
-    - name: Test Web App
-      id: test_app
-      #run:
+   # - name: Test Web App
+   #   id: test_app
+   #    run:
         
 
     - name: Push Multi Platform Image
