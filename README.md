@@ -127,7 +127,10 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 >This is just an option for images. If you don't need **ARM/64** architecture, feel free not to install **QEMU** and not building for **ARM/64**.
 >But it's nice thing to have multi-platform image.
 
-
+## Let's declare variables in Repository secrets.
+- Go to Repository **Settings**
+- On the left side click **Secrets and variables** -> **Actions**
+- Click **New repository secret**
 
 
 
