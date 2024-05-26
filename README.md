@@ -85,4 +85,16 @@ This instruction runs the default command to run when the container starts.
 
 Expose the port that container runs on.
 
+## Now, let's test the container locally.
 
+Run docker commands in folder to create an image.
+```
+docker build -t flask-container:0.1 .
+docker run -p 5000:5000 flask-container:0.1
+```
+If your port 5000 is not available try changing it to 5001 ```docker run -p 5001:5000 flask-container:0.1``` 
+It will bound your 5001 port to 5000 container's port.
+
+<img width="1068" alt="Screenshot 2024-05-26 at 11 02 01" src="https://github.com/Saddff2/github-CI/assets/133538823/f214f0fb-02e4-4cea-8931-c7dcc7ebfb1b">
+
+It works so let's continue.
