@@ -8,6 +8,7 @@ on:
 
 env: 
   IMAGE_NAME: web-app
+  DOCKER_REGISTRY: docker.io
   
 jobs:
   build:
@@ -72,7 +73,7 @@ jobs:
         context: .
         platforms: linux/amd64,linux/arm64
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ DOCKER_USERNAME }}/$IMAGE_NAME:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        tags: $DOCKER_REGISTRY/${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
    
  #   - name: Push Docker Image
  #     if: success() && steps.test_app.outcome == 'success'
