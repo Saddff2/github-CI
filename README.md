@@ -1,4 +1,4 @@
-# GitHub Actions Docker Image Build Test and Push to Dockerhub
+# GitHub Actions Multi-Architecture Docker Image Build Test and Push to Dockerhub
 
 Recently I've been working with GitHub Actions on my project and I wanted to share knowledge that I've earned.
 
@@ -102,8 +102,36 @@ It works so let's continue.
 ## **Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
 
-First things first you need to create a directory .github/workflows in your github repository.
+First things first you need to create a directory .github/workflows in your github repository and make a yml file. 
 
 Let's create it.
+
+<img width="640" alt="Screenshot 2024-05-26 at 13 51 41" src="https://github.com/Saddff2/github-CI/assets/133538823/6995a000-5ac9-4f10-b9e6-0e2249c74475">
+
+### Writing CI Pipeline
+First, let's talk about **Docker**. 
+
+Docker is using your current hardware for building it containers. So if you're working on **ARM/64**
+and want to run Docker images on **AMD/64** architecture you need to specify platform that Docker image 
+is created for. 
+
+In this **CI Pipeline** we will be using Github Action's ubuntu-latest image that is on **AMD/64** architecture
+like most of **Linux** servers are. 
+
+So we need to install **QEMU** - open-source hardware virtualization and emulation tool that will allow us to build also for **ARM/64**.
+
+>[!NOTE]
+>This is just an option for images. If you don't need ARM/64 architecture, feel free not to install QEMU and not building for ARM/64.
+>But it's nice thing to have multi-architecture image.
+
+
+
+
+
+
+
+
+
+
 
 
