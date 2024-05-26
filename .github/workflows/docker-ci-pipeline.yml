@@ -52,7 +52,7 @@ jobs:
       run: |
         docker run -d -e BUILD_DATE=${{ env.BUILD_DATE }} \
         --name web-app-test \
-        {{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
 
 
     - name: Wait for Container to be Ready
