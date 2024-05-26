@@ -146,7 +146,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
  
 And I'll be using 2 enviroment variables named **IMAGE_NAME** and **DOCKER_REGISTRY** that is declared directly in workflow file.
 
-
+If you need to use different registry, check out [docker/login-action documentation](https://github.com/docker/login-action)
 
 
 
