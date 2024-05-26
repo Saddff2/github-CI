@@ -6,8 +6,8 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
 
 - **Python App** (or any app that you want)
 - **Dockerfile**
-- **Github Actins Workflow**
 - **Dockerhub account** (or any other container registry)
+- **Github Actins Workflow**
 
 ## Let's break down the steps.
 
@@ -98,9 +98,24 @@ If port 5000 is unavailable, you can change the local port, for example:
 
 It will bound your 5001 port to 5000 container's port.
 
-<img width="1068" alt="Screenshot 2024-05-26 at 11 02 01" src="https://github.com/Saddff2/github-CI/assets/133538823/f214f0fb-02e4-4cea-8931-c7dcc7ebfb1b">
+<img width="944" alt="Screenshot 2024-05-26 at 16 42 12" src="https://github.com/Saddff2/github-CI/assets/133538823/6250a037-c500-4279-96ac-5621b1b4fcd2">
+
 
 It works so let's continue.
+
+
+
+
+## **Create Dockerhub Account and Repository**
+
+* Go to [hub.docker.com(https://hub.docker.com/signup), you can choose **Create account** or **Continue with Github**.
+
+* **Create a new repository** (public or private, it doesn't matter)
+
+>[!NOTE]
+>You need to name the repository the same way as your docker image.
+
+All set up.
 
 ## **Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
@@ -132,7 +147,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 - On the left side click **Secrets and variables** -> **Actions**
 - Click **New repository secret**
 
-
+**In this workflow I'll be using 5 secrets**
 
 
 
