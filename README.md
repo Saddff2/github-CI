@@ -232,7 +232,13 @@ env:
 ```
 
 **name** - name of the pipeline, can be any that you want.
-**on, push, branches** - actions that **trigger** the pipeline, in our case it's will be triggered when someone pushes commit to **main** branch.
 
+**on, push, branches** - actions that **trigger** the pipeline, in our case it's will be triggered when someone **pushes** commit to **main** branch.
+
+For example you can write more branches or write **on: pull_request: branches: -main** - that will trigger the pipeline when there's is a pull request created.
+
+There's a lot more specific triggers, check out [**official documentation**.](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+
+**env**
 
 
