@@ -219,7 +219,7 @@ jobs:
       ```
  </details>
 
-### **Section 1**
+### **Section 1 - name, triggers, env, jobs**
 ```
 name: Build Test and Push Mutli Platform Docker Image
 on:
@@ -229,6 +229,8 @@ on:
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
+jobs:
+  build:
 ```
 
 **name** - name of the pipeline, can be any that you want.
@@ -239,6 +241,12 @@ For example you can write more branches or write **on: pull_request: branches: -
 
 There's a lot more specific triggers, check out [**official documentation**.](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
-**env**
+**env** - environment variables that will be available for this specific workflow, you can also create such variables in **steps**.
+
+**jobs** - there can be more jobs if you want that will be running in workflow.
+
+**build** - name of the job.
+
+### **Section 2 - **
 
 
