@@ -219,7 +219,7 @@ jobs:
       ```
  </details>
 
-### **Section 1 - name, triggers, env, jobs**
+### **Section 1 - name, triggers, env.**
 ```
 name: Build Test and Push Mutli Platform Docker Image
 on:
@@ -233,20 +233,44 @@ jobs:
   build:
 ```
 
-**name** - name of the pipeline, can be any that you want.
+- **name** - name of the pipeline, can be any that you want.
 
-**on, push, branches** - actions that **trigger** the pipeline, in our case it's will be triggered when someone **pushes** commit to **main** branch.
+- **on, push, branches** - actions that **trigger** the pipeline, in our case it's will be triggered when someone **pushes** commit to **main** branch.
 
 For example you can write more branches or write **on: pull_request: branches: -main** - that will trigger the pipeline when there's is a pull request created.
 
 There's a lot more specific triggers, check out [**official documentation**.](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
-**env** - environment variables that will be available for this specific workflow, you can also create such variables in **steps**.
+- **env** - environment variables that will be available for this specific workflow, you can also create such variables in **jobs** and **steps**.
 
-**jobs** - there can be more jobs if you want that will be running in workflow.
+### **Section 2 - running jobs.**
 
-**build** - name of the job.
+```
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v3
+    - name: Setup Dockerx build
+      uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with: 
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+```
 
-### **Section 2 - **
 
+- **jobs** - there can be more jobs if you want that will be running in workflow.
+
+- **build** - name of the job.
+
+- **runs-on** - there's a list of available images of that jobs will be ran on. For example you can use **macos** or **windows** as image.
+
+- **steps** - each step need to have a name and script what it will do
+
+- **uses** - GH Actions provide us scripts that we can use for regular things.
 
