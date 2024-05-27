@@ -268,7 +268,7 @@ jobs:
 
 - **build** - name of the job.
 
-- **runs-on** - there's a list of available images of that jobs will be ran on. For example you can use **macos** or **windows** as image.
+- **runs-on** - there's a list of available images that jobs will be ran on. For example you can use **macos** or **windows** as image.
 
 - **steps** - each step need to have a name and script what it will do
 
