@@ -156,7 +156,7 @@ And I'll be using 2 enviroment variables named **IMAGE_NAME** and **DOCKER_REGIS
 If you need to use **different registry**, check out [docker/login-action documentation](https://github.com/docker/login-action)
 
 
-# Step 4.3: Explaining the workflow code.
+### Step 4.3: Explaining the workflow code.
 
 <details>
   <summary><b>FULL WORKFLOW CODE</b></summary>
