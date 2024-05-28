@@ -144,7 +144,63 @@ It will bind your local port 5001 to the container's port 5000.
 
 <img width="938" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/655a2526-82f6-4d39-b1fb-e9b80cff8995">
 
+### Step 2.3: [OPTIONAL] Adding Unit Tests with pytest
 
+1. Add pytest to requirements.txt
+   ```
+   Flask==2.0.1
+   pytest==6.2.4
+   ```
+2. **Create a Unit Test**:
+   
+Create a new directory named tests in your project root and add a test file named test_app.py:
+
+```
+mkdir tests
+touch tests/test_app.py
+```
+
+3. **Write the Test**:
+
+In tests/test_app.py, add the following test code:
+
+```
+from app import app
+
+def test_home():
+    with app.test_client() as client:
+        response = client.get('/')
+        assert response.status_code == 200
+        assert response.data.decode() == "Hello from Daniel Tsoref"
+```
+
+4. **Update the Dockerfile to Include Tests**
+
+```FROM python:3.12.1-alpine3.19
+
+WORKDIR /app
+
+COPY requirements.txt /app/requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . /app
+
+RUN pytest
+
+CMD ["python", "app.py"]
+
+EXPOSE 5000
+```
+
+5. **Update the GitHub Actions Workflow to Run Tests**
+   
+```
+- name: Run Unit Tests
+  run: |
+    docker build -t flask-container:test --target test .
+    docker run flask-container:test pytest
+```
 
 ## **Step 3: Create Dockerhub Account and Repository**
 
