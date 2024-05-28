@@ -102,7 +102,7 @@ It will bound your 5001 port to 5000 container's port.
 
 ## **Create Dockerhub Account and Repository**
 
-* Go to [hub.docker.com(https://hub.docker.com/signup), you can choose **Create account** or **Continue with Github**.
+* Go to [hub.docker.com](https://hub.docker.com/signup), you can choose **Create account** or **Continue with Github**.
 
 * **Create a new repository** (public or private, it doesn't matter)
 
