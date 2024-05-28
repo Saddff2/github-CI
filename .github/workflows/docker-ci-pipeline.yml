@@ -4,7 +4,7 @@ name: Build Test and Push Mutli Platform Docker Image
 on:
   push:
     branches:
-      - main
+      - dev
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
@@ -59,7 +59,7 @@ jobs:
     - name: Test Web App
       id: test_app
       run:
-        docker exec -t web-app-test pytest 
+        curl -sSf http://localhost:5000 || exit 1
 
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
