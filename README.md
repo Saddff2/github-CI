@@ -114,12 +114,12 @@ It will bound your 5001 port to 5000 container's port.
 * **Create a new repository** (public or private, it doesn't matter)
 
 >[!NOTE]
->You need to name the repository the same way as your docker image.
+>You need to name the repository the same way as your Docker image.
 
 ## **Step 4: Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
 
-For workflow to work, we need to create a directory .github/workflows in your github repository and make a yml file. 
+For the workflow to work, we need to create a directory .github/workflows in your GitHub repository and create a YAML file.
 
 Let's create it.
 
@@ -146,14 +146,14 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 - On the left side click **Secrets and variables** -> **Actions**
 - Click **New repository secret**
 
-**In this workflow you'll need to define 2 Repository secrets**
+**In this workflow, you'll need to define 2 repository secrets**
 
-1. **DOCKER_USERNAME**  _for **value** write down your DOCKERHUB **Username**_
-2. **DOCKER_ACCESS_TOKEN** _for **value** create DOCKERHUB Access Token **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
+1. **DOCKER_USERNAME**  _for **value**, write down your Docker Hub **Username**_
+2. **DOCKER_ACCESS_TOKEN** _for **value**, create a Docker Hub Access Token at **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
  
-And I'll be using 2 enviroment variables named **IMAGE_NAME** and **DOCKER_REGISTRY** that is declared directly in workflow file.
+I will be using 2 environment variables named **IMAGE_NAME** and **DOCKER_REGISTRY**, which are declared directly in the workflow file
 
-If you need to use **different registry**, check out [docker/login-action documentation](https://github.com/docker/login-action)
+If you need to use a **different registry**, check out [docker/login-action documentation](https://github.com/docker/login-action)
 
 
 ### Step 4.3: Explaining the workflow code.
@@ -261,11 +261,11 @@ jobs:
 
 - **on, push, branches** - actions that **trigger** the pipeline, in our case it will be triggered when someone **pushes** commit to **main** branch.
 
-For example, you can write more branches or write **on: pull_request: branches: -main** - that will trigger the pipeline when there's is a pull request created.
+For example, you can write more branches or use `on: pull_request: branches: -main` - that will trigger the pipeline when a pull request is created.
 
-There's a lot more specific triggers, check out [**official documentation**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+There's a lot more specific triggers; check out [**official documentation**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
-- **env** - environment variables that will be available for this specific workflow, you can also create such variables in **jobs** and **steps**.
+- **env** - environment variables that will be available for this specific workflow, you can also create such variables in the **jobs** and **steps**.
 
 
 
@@ -294,7 +294,7 @@ jobs:
 
 - **build** - name of the job.
 
-- **runs-on** - there's a list of available images that jobs will be ran on. For example you can use **macos** or **windows** as image.
+- **runs-on** - there's a list of available images that jobs will be run on. For example, you can use **macos** or **windows** as image.
 
 - **steps** - each step need to have a name and script what it will do
 
@@ -371,7 +371,7 @@ jobs:
 
 ```
 
-- **Build and Push final Multi Platform Image** - Use **if** to determine if previous steps and **Test Web App** was successed with it's id. 
+- **Build and Push final Multi Platform Image** - Use **if** to determine if previous steps and **Test Web App** was successed based on it's ID. 
 
 - **platforms** - Build for multiple architectures using QEMU installed previously.
 
