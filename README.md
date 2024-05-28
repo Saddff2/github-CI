@@ -3,11 +3,11 @@
 Recently I've been working with GitHub Actions on my project and I wanted to share knowledge that I've gained.
 
 ### Contents
-[Step 1: Python App](#step-1-python-app)
-[Step 2: Dockerfile](#step-2-dockerfile)
-[Step 2.1: Test the Container Locally](#test-container-locally)
-[Step 3: Create Dockerhub Account and Repository](#create-dockerhub-account-and-repository)
-[Step 4: Github Actions Workflow](#github-actions-workflow)
+- [Step 1: Python App](#step-1-python-app)
+- [Step 2: Dockerfile](#step-2-dockerfile)
+- [Step 2.1: Test the Container Locally](#step-21-test-the-container-locally)
+- [Step 3: Create Dockerhub Account and Repository](#create-dockerhub-account-and-repository)
+- [Step 4: Github Actions Workflow](#github-actions-workflow)-=
   
 ## So, What we need?
 
