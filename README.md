@@ -142,7 +142,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 **In this workflow you'll need to define 2 Repository secrets**
 
 1. **DOCKER_USERNAME**  _for **value** write down your DOCKERHUB **Username**_
-2. **DOCKER_ACCESS_TOKEN** _for **value** create in DOCKERHUB Access Token **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
+2. **DOCKER_ACCESS_TOKEN** _for **value** create DOCKERHUB Access Token **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
  
 And I'll be using 2 enviroment variables named **IMAGE_NAME** and **DOCKER_REGISTRY** that is declared directly in workflow file.
 
@@ -212,7 +212,7 @@ jobs:
     - name: Wait for Container to be Ready
       run: |
         echo "Waiting for container to be ready..."
-        sleep 10
+        sleep 5
         
     - name: Test Web App
       id: test_app
@@ -290,4 +290,73 @@ jobs:
 - **steps** - each step need to have a name and script what it will do
 
 - **uses** - GH Actions provide us scripts that we can use for regular things.
+
+
+### **Sections 3 - Building and Testing.**
+
+
+```
+ - name: Determine version number
+      id: determine_version
+      run: |
+        BUILD_DATE=$(date +%d-%m-%Y)
+        echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+        BUILD_NUMBER=$(git rev-parse --short HEAD)
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+        
+    - name: Build AMD/64 Platform Container 
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64
+        push: false
+        load: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
+    - name: Run Container
+      run: |
+        docker run -d -p 5000:5000 \
+        --name web-app-test \
+        ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
+    - name: Wait for Container to be Ready
+      run: |
+        echo "Waiting for container to be ready..."
+        sleep 5
+        
+    - name: Test Web App
+      id: test_app
+      run:
+        curl -sSf http://localhost:5000 || exit 1
+```
+
+- **Determine version number** - Use the current date and commit hash to determine the version for the image tag.
+
+- **Build AMD/64 Platform Container** - Build the image for test purposes on only one platform to save time.
+
+- **Run container** - Run the recently created image.
+
+- **Waiting for container to start** - This step is not always needed.
+
+- **Test Web App** - Test the app using a simple bash command. If the command does not succeed, it exits from workflow.
+
+
+### **Section 4 - Building and Pushing final Image.**
+
+```
+    - name: Push Multi Platform Image
+      uses: docker/build-push-action@v5 
+      if: success() && steps.test_app.outcome == 'success'
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
+    - name: Logout from Docker
+      run: docker logout
+```
+
+
+
 
