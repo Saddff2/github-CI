@@ -2,6 +2,13 @@
 
 Recently I've been working with GitHub Actions on my project and I wanted to share knowledge that I've gained.
 
+### Contents
+[Step 1: Python App](#step-1-python-app)
+[Step 2: Dockerfile](#step-2-dockerfile)
+[Step 2.1: Test the Container Locally](#test-container-locally)
+[Step 3: Create Dockerhub Account and Repository](#create-dockerhub-account-and-repository)
+[Step 4: Github Actions Workflow](#github-actions-workflow)
+  
 ## So, What we need?
 
 - **Python App** (or any app that you want)
@@ -89,7 +96,7 @@ Expose the port that the container runs on.
 
 </details>
 
-### Step 2.1: Testing the container locally.
+### Step 2.1: Test the container locally.
 
 Run Docker commands in folder to create an image.
 ```
@@ -158,8 +165,9 @@ If you need to use a **different registry**, check out [docker/login-action docu
 
 ### Step 4.3: Explaining the workflow code.
 
+### Workflow
 <details>
-  <summary><b>FULL WORKFLOW CODE</b></summary>
+    <summary><b>FULL WORKFLOW CODE</b></summary>
 
 ```
 name: Build Test and Push Mutli Platform Docker Image
