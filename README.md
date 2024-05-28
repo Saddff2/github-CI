@@ -12,7 +12,11 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
   - [Step 4.1: Writing CI Pipeline](#step-41-writing-ci-pipeline)
   - [Step 4.2: Declaring variables in Repository secrets](#step-42-declaring-variables-in-repository-secrets)
   - [Step 4.3: Explaining the workflow code](#step-43-explaining-the-workflow-code)
-    - [Section 1 - name, triggers, env](#section-1-name-triggers-env]
+  - [Full Workflow Code](#full-workflow-code)
+    - [Section 1 - name, triggers, env](#section-1---name-triggers-env)
+    - [Section 2 - running jobs](#section-2---running-jobs)
+    - [Section 3 - Building and Testing](#section-3---building-and-testing)
+    - [Section 4 - Building and Pushing final Image](section-4---building-and-pushing-final-image)
   
 ## So, What we need?
 
@@ -170,9 +174,9 @@ If you need to use a **different registry**, check out [docker/login-action docu
 
 ### Step 4.3: Explaining the workflow code.
 
-### Workflow
+### Full Workflow Code
 <details>
-    <summary><b>FULL WORKFLOW CODE</b></summary>
+    <summary><b>WORKFLOW</b></summary>
 
 ```
 name: Build Test and Push Mutli Platform Docker Image
@@ -315,7 +319,7 @@ jobs:
 
 
 
-### **Sections 3 - Building and Testing.**
+### **Section 3 - Building and Testing.**
 
 
 ```
