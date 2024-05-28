@@ -69,12 +69,7 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
-   
- #   - name: Push Docker Image
- #     if: success() && steps.test_app.outcome == 'success'
- #     run: |
- #        docker buildx build --platform linux/amd64,linux/arm64 -t {{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}.dev --push .
-
+        
     - name: Logout from Docker
       run: docker logout
       
