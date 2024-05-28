@@ -150,7 +150,7 @@ It will bind your local port 5001 to the container's port 5000.
 1. Add pytest to requirements.txt
    ```
    Flask==2.0.1
-   pytest==6.2.4
+   pytest==8.2.1
    ```
 2. **Create a Unit Test**:
    
