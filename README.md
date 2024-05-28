@@ -11,7 +11,7 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
 
 ## Let's break down the steps.
 
-### Python App
+### Step 1: Python App
 
 For app example I'll be using simple Flask application written in python.
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
 This is simple web app that will be running on Flask default port 5000. 
 
-### Dockerfile
+### Step 2: Dockerfile
 ```
 FROM python:3.12.1-alpine3.19
 
@@ -46,6 +46,10 @@ CMD ["python", "app.py"]
 
 EXPOSE 5000
 ```
+>[!IMPORTANT]
+>If you're not familiar with writing Dockerfiles, click down below.
+<details><summary><b>CLICK HERE.</b></summary>
+
 * **FROM python:3.12.1-alpine3.19**
 
 I'll be using official Python image based on Alpine linux.
@@ -83,7 +87,9 @@ This instruction runs the default command to run when the container starts.
 
 Expose the port that container runs on.
 
-## Now, let's test the container locally.
+</details>
+
+### Step 2.1: Testing the container locally.
 
 Run docker commands in folder to create an image.
 ```
@@ -96,11 +102,12 @@ If port 5000 is unavailable, you can change the local port, for example:
 
 It will bound your 5001 port to 5000 container's port.
 
-<img width="944" alt="Screenshot 2024-05-26 at 16 42 12" src="https://github.com/Saddff2/github-CI/assets/133538823/6250a037-c500-4279-96ac-5621b1b4fcd2">
+
+<img width="938" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/655a2526-82f6-4d39-b1fb-e9b80cff8995">
 
 
 
-## **Create Dockerhub Account and Repository**
+## **Step 3: Create Dockerhub Account and Repository**
 
 * Go to [hub.docker.com](https://hub.docker.com/signup), you can choose **Create account** or **Continue with Github**.
 
@@ -109,16 +116,16 @@ It will bound your 5001 port to 5000 container's port.
 >[!NOTE]
 >You need to name the repository the same way as your docker image.
 
-## **Github Actions Workflow**
+## **Step 4: Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
 
-First things first you need to create a directory .github/workflows in your github repository and make a yml file. 
+For workflow to work, we need to create a directory .github/workflows in your github repository and make a yml file. 
 
 Let's create it.
 
-<img width="640" alt="Screenshot 2024-05-26 at 13 51 41" src="https://github.com/Saddff2/github-CI/assets/133538823/6995a000-5ac9-4f10-b9e6-0e2249c74475">
+<img width="640" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/6995a000-5ac9-4f10-b9e6-0e2249c74475">
 
-### Writing CI Pipeline
+### **Step 4.1: Writing CI Pipeline**
 First, let's talk about **Docker**. 
 
 **Docker** is using your current hardware for building it's containers. So if you're working on **ARM/64**
@@ -134,7 +141,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 >This is just an option for images. If you don't need **ARM/64** architecture, feel free not to install **QEMU** and not building for **ARM/64**.
 >But it's nice thing to have multi-platform image.
 
-## Let's declare variables in Repository secrets.
+### Step 4.2: Declaring variables in Repository secrets.
 - Go to Repository **Settings**
 - On the left side click **Secrets and variables** -> **Actions**
 - Click **New repository secret**
@@ -146,13 +153,13 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
  
 And I'll be using 2 enviroment variables named **IMAGE_NAME** and **DOCKER_REGISTRY** that is declared directly in workflow file.
 
-If you need to use different registry, check out [docker/login-action documentation](https://github.com/docker/login-action)
+If you need to use **different registry**, check out [docker/login-action documentation](https://github.com/docker/login-action)
 
 
-## Explaining the workflow code.
+# Step 4.3: Explaining the workflow code.
 
 <details>
-  <summary><b>Click to see the code.</b></summary>
+  <summary><b>FULL WORKFLOW CODE</b></summary>
 
 ```
 name: Build Test and Push Mutli Platform Docker Image
@@ -235,6 +242,7 @@ jobs:
     
 </details>
 
+
 ### **Section 1 - name, triggers, env.**
 ```
 name: Build Test and Push Mutli Platform Docker Image
@@ -258,6 +266,8 @@ For example, you can write more branches or write **on: pull_request: branches: 
 There's a lot more specific triggers, check out [**official documentation**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
 - **env** - environment variables that will be available for this specific workflow, you can also create such variables in **jobs** and **steps**.
+
+
 
 ### **Section 2 - running jobs.**
 
@@ -289,6 +299,7 @@ jobs:
 - **steps** - each step need to have a name and script what it will do
 
 - **uses** - GH Actions provide us scripts that we can use for regular things.
+
 
 
 ### **Sections 3 - Building and Testing.**
