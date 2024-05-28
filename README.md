@@ -5,9 +5,14 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
 ### Contents
 - [Step 1: Python App](#step-1-python-app)
 - [Step 2: Dockerfile](#step-2-dockerfile)
-- [Step 2.1: Test the Container Locally](#step-21-test-the-container-locally)
-- [Step 3: Create Dockerhub Account and Repository](#create-dockerhub-account-and-repository)
-- [Step 4: Github Actions Workflow](#github-actions-workflow)-=
+  - [Step 2.1: Dockerfile explanation](#step-21-dockerfile-explanation)
+  - [Step 2.2: Test the Container Locally](#step-22-test-the-container-locally)
+- [Step 3: Create Dockerhub Account and Repository](#step-3-create-dockerhub-account-and-repository)
+- [Step 4: Github Actions Workflow](#step-4-github-actions-workflow)
+  - [Step 4.1: Writing CI Pipeline](#step-41-writing-ci-pipeline)
+  - [Step 4.2: Declaring variables in Repository secrets](#step-42-declaring-variables-in-repository-secrets)
+  - [Step 4.3: Explaining the workflow code](#step-43-explaining-the-workflow-code)
+    - [Section 1 - name, triggers, env](#section-1-name-triggers-env]
   
 ## So, What we need?
 
@@ -53,8 +58,7 @@ CMD ["python", "app.py"]
 
 EXPOSE 5000
 ```
->[!IMPORTANT]
->If you're not familiar with writing Dockerfiles, click down below.
+### Step 2.1: Dockerfile explanation
 <details><summary><b>CLICK HERE.</b></summary>
 
 * **FROM python:3.12.1-alpine3.19**
@@ -69,6 +73,7 @@ This will set the working directory to **/app** in the container. All shell comm
 * **COPY requirements.txt /app/requirements.txt**
 
 Copy the requirements file into the container. 
+
 >[!IMPORTANT]
 >You need to create **requirements.txt** file **prior** using ```pip freeze > requirements.txt``` in the app's folder.
 
@@ -96,7 +101,7 @@ Expose the port that the container runs on.
 
 </details>
 
-### Step 2.1: Test the container locally.
+### Step 2.2: Test the container locally.
 
 Run Docker commands in folder to create an image.
 ```
