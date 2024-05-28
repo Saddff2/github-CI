@@ -25,7 +25,7 @@ def home():
     return "Hello from Daniel Tsoref"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
 ```
 
 This is simple web app that will be running on Flask default port 5000. 
@@ -369,6 +369,9 @@ jobs:
 - **tags** - needs to contain repository_name/your_image_name:tags
 
 - **Logout** - ensures that any authentication credentials used to access the Docker registry are cleared from the runner's environment.
+
+
+
 
   
 
