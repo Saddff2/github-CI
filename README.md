@@ -239,7 +239,7 @@ jobs:
 
 For example you can write more branches or write **on: pull_request: branches: -main** - that will trigger the pipeline when there's is a pull request created.
 
-There's a lot more specific triggers, check out [**official documentation**.](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+There's a lot more specific triggers, check out [**official documentation**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
 - **env** - environment variables that will be available for this specific workflow, you can also create such variables in **jobs** and **steps**.
 
