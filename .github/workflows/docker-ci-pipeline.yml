@@ -59,7 +59,7 @@ jobs:
     - name: Test Web App
       id: test_app
       run:
-        docker exec -it web-app-test pytest 
+        docker exec -t web-app-test pytest 
 
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
