@@ -153,30 +153,38 @@ If you need to use different registry, check out [docker/login-action documentat
 
 <details>
   <summary><b>Click to see the code.</b></summary>
-    ```
+
+```
 name: Build Test and Push Mutli Platform Docker Image
 on:
   push:
     branches:
       - main
+      
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
+  
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    
     - name: Checkout Repository
       uses: actions/checkout@v4
+      
     - name: Setup QEMU
       uses: docker/setup-qemu-action@v3
+      
     - name: Setup Dockerx build
       uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226
+      
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with: 
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        
     - name: Determine version number
       id: determine_version
       run: |
@@ -184,6 +192,7 @@ jobs:
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
         BUILD_NUMBER=$(git rev-parse --short HEAD)
         echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+        
     - name: Build AMD/64 Platform Container 
       uses: docker/build-push-action@v5
       with:
@@ -192,20 +201,24 @@ jobs:
         push: false
         load: true
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
     - name: Run Container
       run: |
         docker run -d -p 5000:5000 \
         -e BUILD_DATE=${{ env.BUILD_DATE }} \
         --name web-app-test \
         ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
     - name: Wait for Container to be Ready
       run: |
         echo "Waiting for container to be ready..."
         sleep 10
+        
     - name: Test Web App
       id: test_app
       run:
         curl -sSf http://localhost:5000 || exit 1
+        
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
       if: success() && steps.test_app.outcome == 'success'
@@ -214,10 +227,14 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
     - name: Logout from Docker
       run: docker logout
-      ```
- </details>
+
+      
+  ```
+    
+</details>
 
 ### **Section 1 - name, triggers, env.**
 ```
