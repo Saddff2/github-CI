@@ -2,8 +2,7 @@
 
 In today's fast-paced development environment, automating your build, test, and deployment processes is crucial for ensuring efficient and reliable software delivery. One powerful tool for achieving this automation is GitHub Actions, which allows you to create custom workflows directly in your GitHub repository.
 
-In this guide, I'll walk you through the process of building, testing, and pushing multi-architecture Docker images using GitHub Actions. 
-This setup allows you to create Docker images that can run on different CPU architectures, such as AMD64 and ARM64, which is useful for supporting a wide range of environments and devices.
+In this guide, I'll walk you through the process of setting up a continuous integration (CI) pipeline using GitHub Actions to build, test, and push a multi-architecture Docker image to DockerHub. Whether you're new to CI/CD pipelines or looking to enhance your existing workflow, this guide will provide the insights and steps you need to get started.
 
 ### Contents
 - [Step 1: Python App](#step-1-python-app)
