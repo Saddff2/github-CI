@@ -25,6 +25,7 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
 - [Step 2: Dockerfile](#step-2-dockerfile)
   - [Step 2.1: Dockerfile explanation](#step-21-dockerfile-explanation)
   - [Step 2.2: Test the Container Locally](#step-22-test-the-container-locally)
+  - [Step 2.3: [OPTIONAL] Adding Unit Tests with pytest](#step-23-optional-adding-unit-tests-with-pytest)
 - [Step 3: Create Dockerhub Account and Repository](#step-3-create-dockerhub-account-and-repository)
 - [Step 4: Github Actions Workflow](#step-4-github-actions-workflow)
   - [Step 4.1: Writing CI Pipeline](#step-41-writing-ci-pipeline)
