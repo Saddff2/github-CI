@@ -205,7 +205,6 @@ jobs:
     - name: Run Container
       run: |
         docker run -d -p 5000:5000 \
-        -e BUILD_DATE=${{ env.BUILD_DATE }} \
         --name web-app-test \
         ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
         
@@ -225,7 +224,7 @@ jobs:
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: ${{ github.event_name != 'pull_request' }}
+        push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
         
     - name: Logout from Docker
@@ -252,9 +251,9 @@ jobs:
 
 - **name** - name of the pipeline, can be any that you want.
 
-- **on, push, branches** - actions that **trigger** the pipeline, in our case it's will be triggered when someone **pushes** commit to **main** branch.
+- **on, push, branches** - actions that **trigger** the pipeline, in our case it will be triggered when someone **pushes** commit to **main** branch.
 
-For example you can write more branches or write **on: pull_request: branches: -main** - that will trigger the pipeline when there's is a pull request created.
+For example, you can write more branches or write **on: pull_request: branches: -main** - that will trigger the pipeline when there's is a pull request created.
 
 There's a lot more specific triggers, check out [**official documentation**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
@@ -334,6 +333,9 @@ jobs:
 
 - **Build AMD/64 Platform Container** - Build the image for test purposes on only one platform to save time.
 
+>[!IMPORTANT]
+>Use **load:true** to make image available to use locally after build.
+
 - **Run container** - Run the recently created image.
 
 - **Waiting for container to start** - This step is not always needed.
@@ -350,12 +352,28 @@ jobs:
       with:
         context: .
         platforms: linux/amd64,linux/arm64
-        push: ${{ github.event_name != 'pull_request' }}
+        push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
         
     - name: Logout from Docker
       run: docker logout
+
 ```
+
+- **Build and Push final Multi Platform Image** - Use **if** to determine if previous steps and **Test Web App** was successed with it's id. 
+
+- **platforms** - Build for multiple architectures using QEMU installed previously.
+
+- **push** - Push to Container Repository.
+
+- **tags** - needs to contain repository_name/your_image_name:tags
+
+- **Logout** - ensures that any authentication credentials used to access the Docker registry are cleared from the runner's environment.
+
+  
+
+
+
 
 
 
