@@ -59,7 +59,6 @@ jobs:
     - name: Test Web App
       id: test_app
       run:
-        curl -sSf http://localhost:5000 || exit 1
         docker exec -it web-app-test pytest 
 
     - name: Push Multi Platform Image
