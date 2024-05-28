@@ -4,7 +4,7 @@ name: Build Test and Push Mutli Platform Docker Image
 on:
   push:
     branches:
-      - dev
+      - main
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
