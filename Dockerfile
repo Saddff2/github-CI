@@ -8,6 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
+RUN pytest
+
 CMD ["python", "app.py"]
 
 EXPOSE 5000
