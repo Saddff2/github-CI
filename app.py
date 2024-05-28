@@ -7,4 +7,4 @@ def home():
     return "Hello from Daniel Tsoref"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
