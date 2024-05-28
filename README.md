@@ -13,7 +13,7 @@ Recently I've been working with GitHub Actions on my project and I wanted to sha
 
 ### Step 1: Python App
 
-For app example I'll be using simple Flask application written in python.
+For this example, I'll be using a simple Flask application written in Python.
 
 ```
 from flask import Flask
@@ -52,12 +52,12 @@ EXPOSE 5000
 
 * **FROM python:3.12.1-alpine3.19**
 
-I'll be using official Python image based on Alpine linux.
-**Alpine Linux** is low-weight distribution that is perfect for containers.
+I'll be using the official Python image based on Alpine linux.
+**Alpine Linux** is a lightweight distribution that is perfect for containers.
 
 * **WORKDIR /app**
 
-This will set working directory to /app in the container. All the shell commands will run there.
+This will set the working directory to **/app** in the container. All shell commands will run there.
 
 * **COPY requirements.txt /app/requirements.txt**
 
@@ -78,20 +78,20 @@ Copy the rest of the application code into the container
 
 * **CMD ["python", "app.py"]**
 
-This instruction runs the default command to run when the container starts.
+This instruction specifies the default command to run when the container starts.
 
 >[!NOTE]
->**CMD** instruction can only be used once in Dockerfile, if you want to run other scripts while container is creating use **RUN** instruction.
+>**CMD** instruction can only be used once in Dockerfile, if you want to run other scripts while container is creating, use the **RUN** instruction.
 
 * **EXPOSE 5000**
 
-Expose the port that container runs on.
+Expose the port that the container runs on.
 
 </details>
 
 ### Step 2.1: Testing the container locally.
 
-Run docker commands in folder to create an image.
+Run Docker commands in folder to create an image.
 ```
 docker build -t flask-container:0.1 .
 docker run -p 5000:5000 flask-container:0.1
@@ -100,7 +100,7 @@ If port 5000 is unavailable, you can change the local port, for example:
 
 ```docker run -p 5001:5000 flask-container:0.1``` 
 
-It will bound your 5001 port to 5000 container's port.
+It will bind your local port 5001 to the container's port 5000.
 
 
 <img width="938" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/655a2526-82f6-4d39-b1fb-e9b80cff8995">
@@ -119,7 +119,7 @@ It will bound your 5001 port to 5000 container's port.
 ## **Step 4: Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
 
-For the workflow to work, we need to create a directory .github/workflows in your GitHub repository and create a YAML file.
+For the workflow to work, we need to create a directory `.github/workflows` in your GitHub repository and create a YAML file.
 
 Let's create it.
 
