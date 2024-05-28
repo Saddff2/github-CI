@@ -175,32 +175,13 @@ def test_home():
         assert response.data.decode() == "Hello from Daniel Tsoref"
 ```
 
-4. **Update the Dockerfile to Include Tests**
-
-```FROM python:3.12.1-alpine3.19
-
-WORKDIR /app
-
-COPY requirements.txt /app/requirements.txt
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . /app
-
-RUN pytest
-
-CMD ["python", "app.py"]
-
-EXPOSE 5000
-```
-
-5. **Update the GitHub Actions Workflow to Run Tests**
+4. **Update the GitHub Actions Workflow to Run Tests**
    
 ```
 - name: Run Unit Tests
-  run: |
-    docker build -t flask-container:test --target test .
-    docker run flask-container:test pytest
+  id: unit_test
+  run:
+    docker exec -t web-app-test pytest 
 ```
 
 ## **Step 3: Create Dockerhub Account and Repository**
