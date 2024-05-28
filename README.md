@@ -1,6 +1,6 @@
 # GitHub Actions Multi-Architecture Docker Image Build Test and Push to Dockerhub
 
-Recently I've been working with GitHub Actions on my project and I wanted to share knowledge that I've gained.
+Recently, I've been working with GitHub Actions on my project and wanted to share the knowledge that I've gained.
 
 ### Contents
 - [Step 1: Python App](#step-1-python-app)
@@ -145,7 +145,7 @@ Let's create it.
 First, let's talk about **Docker**. 
 
 **Docker** is using your current hardware for building it's containers. So if you're working on **ARM/64**
-and want to run Docker images on **AMD/64** architecture you need to specify platform that **Docker** image 
+and want to run Docker images on **AMD/64** architecture, you need to specify platform that **Docker** image 
 is created for. 
 
 In this **CI Pipeline** we will be using Github Action's ubuntu-latest image that is on **AMD/64** architecture
@@ -154,8 +154,8 @@ like most of **Linux** servers are.
 So we need to install **QEMU** - open-source hardware virtualization and emulation tool that will allow us to build also for **ARM/64**.
 
 >[!NOTE]
->This is just an option for images. If you don't need **ARM/64** architecture, feel free not to install **QEMU** and not building for **ARM/64**.
->But it's nice thing to have multi-platform image.
+>This is just an option for images. If you don't need **ARM/64** architecture, feel free not to install **QEMU** and not build for **ARM/64**.
+>Howerver, it's nice to have multi-platform image.
 
 ### Step 4.2: Declaring variables in Repository secrets.
 - Go to Repository **Settings**
@@ -167,7 +167,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 1. **DOCKER_USERNAME**  _for **value**, write down your Docker Hub **Username**_
 2. **DOCKER_ACCESS_TOKEN** _for **value**, create a Docker Hub Access Token at **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
  
-I will be using 2 environment variables named **IMAGE_NAME** and **DOCKER_REGISTRY**, which are declared directly in the workflow file
+I will be using 2 environment variables named **IMAGE_NAME** and **DOCKER_REGISTRY**, which are declared directly in the workflow file.
 
 If you need to use a **different registry**, check out [docker/login-action documentation](https://github.com/docker/login-action)
 
@@ -284,7 +284,9 @@ There's a lot more specific triggers; check out [**official documentation**](htt
 
 - **env** - environment variables that will be available for this specific workflow, you can also create such variables in the **jobs** and **steps**.
 
+- **IMAGE_NAME** - name of your image.
 
+- **DOCKER_REGISTRY** - In our case it's Docker Hub, but you can specify other container registry and use it in your workflow, check out [docker/login-action documentation](https://github.com/docker/login-action) to correctly implement it.
 
 ### **Section 2 - running jobs.**
 
@@ -307,13 +309,13 @@ jobs:
 ```
 
 
-- **jobs** - there can be more jobs if you want that will be running in workflow.
+- **jobs** - There can be more jobs if you want that will be running in workflow.
 
-- **build** - name of the job.
+- **build** - Name of the job.
 
-- **runs-on** - there's a list of available images that jobs will be run on. For example, you can use **macos** or **windows** as image.
+- **runs-on** - There's a list of available images that jobs will be run on. For example, you can use **macos** or **windows** as image.
 
-- **steps** - each step need to have a name and script what it will do
+- **steps** - Each step needs to have a name and a script specifying what it will do.
 
 - **uses** - GH Actions provide us scripts that we can use for regular things.
 
