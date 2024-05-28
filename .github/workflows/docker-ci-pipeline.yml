@@ -60,6 +60,7 @@ jobs:
       id: test_app
       run:
         curl -sSf http://localhost:5000 || exit 1
+        docker exec -it web-app-test pytest 
 
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
