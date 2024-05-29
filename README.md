@@ -280,91 +280,6 @@ If you need to use a **different registry**, check out [docker/login-action docu
 
 ### Step 4.3: Explaining the workflow code.
 
-### Full Workflow Code
-<details>
-    <summary><b>WORKFLOW</b></summary>
-
-```
-name: Build Test and Push Mutli Platform Docker Image
-on:
-  push:
-    branches:
-      - main
-      
-env: 
-  IMAGE_NAME: web-app
-  DOCKER_REGISTRY: docker.io
-  APP_PORT: 5000
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      
-    - name: Setup QEMU
-      uses: docker/setup-qemu-action@v3
-      
-    - name: Setup Dockerx build
-      uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226
-      
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with: 
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-        
-    - name: Determine version number
-      id: determine_version
-      run: |
-        BUILD_DATE=$(date +%d-%m-%Y)
-        echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
-        BUILD_NUMBER=$(git rev-parse --short HEAD)
-        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
-        
-    - name: Build AMD/64 Platform Container 
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        platforms: linux/amd64
-        push: false
-        load: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
-        
-    - name: Run Container
-      run: |
-        docker run -d -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
-        --name web-app-test \
-        ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
-        
-    - name: Wait for Container to be Ready
-      run: |
-        echo "Waiting for container to be ready..."
-        sleep 5
-        
-    - name: Test Web App
-      id: test_app
-      run:
-        curl -sSf http://localhost:${{ env.APP_PORT }} || exit 1
-        
-    - name: Push Multi Platform Image
-      uses: docker/build-push-action@v5 
-      if: success() && steps.test_app.outcome == 'success'
-      with:
-        context: .
-        platforms: linux/amd64,linux/arm64
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
-        
-    - name: Logout from Docker
-      run: docker logout
-
-      
-  ```
-    
-</details>
-
 ### NodeJS Workflow Code [OPTIONAL]
 
 <details><summary><b>NodeJS Workflow</b></summary>
@@ -465,6 +380,92 @@ jobs:
       run: docker logout
 ```
 
+</details>
+
+
+### Full Workflow Code
+<details>
+    <summary><b>WORKFLOW</b></summary>
+
+```
+name: Build Test and Push Mutli Platform Docker Image
+on:
+  push:
+    branches:
+      - main
+      
+env: 
+  IMAGE_NAME: web-app
+  DOCKER_REGISTRY: docker.io
+  APP_PORT: 5000
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v3
+      
+    - name: Setup Dockerx build
+      uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with: 
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        
+    - name: Determine version number
+      id: determine_version
+      run: |
+        BUILD_DATE=$(date +%d-%m-%Y)
+        echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+        BUILD_NUMBER=$(git rev-parse --short HEAD)
+        echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+        
+    - name: Build AMD/64 Platform Container 
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64
+        push: false
+        load: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
+    - name: Run Container
+      run: |
+        docker run -d -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
+        --name web-app-test \
+        ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
+    - name: Wait for Container to be Ready
+      run: |
+        echo "Waiting for container to be ready..."
+        sleep 5
+        
+    - name: Test Web App
+      id: test_app
+      run:
+        curl -sSf http://localhost:${{ env.APP_PORT }} || exit 1
+        
+    - name: Push Multi Platform Image
+      uses: docker/build-push-action@v5 
+      if: success() && steps.test_app.outcome == 'success'
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
+        
+    - name: Logout from Docker
+      run: docker logout
+
+      
+  ```
+    
 </details>
 
 
