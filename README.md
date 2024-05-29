@@ -34,6 +34,7 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
   - [Step 4.2: Declaring variables in Repository secrets](#step-42-declaring-variables-in-repository-secrets)
   - [Step 4.3: Explaining the workflow code](#step-43-explaining-the-workflow-code)
   - [Full Workflow Code](#full-workflow-code)
+  - [NodeJS Workflow Code [**OPTIONAL**]](#nodejs-workflow-code-optional)
     - [Section 1 - name, triggers, env](#section-1---name-triggers-env)
     - [Section 2 - running jobs](#section-2---running-jobs)
     - [Section 3 - Building and Testing](#section-3---building-and-testing)
@@ -364,7 +365,7 @@ jobs:
     
 </details>
 
-### NodeJS Workflow Code
+### NodeJS Workflow Code [OPTIONAL]
 
 <details><summary><b>NodeJS Workflow</b></summary>
 
