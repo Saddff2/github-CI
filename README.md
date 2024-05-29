@@ -27,6 +27,7 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
 - [Step 2.0.1: NodeJS Dockerfile](#step-201-nodejs-dockerfile-optional)
   - [Step 2.1: Dockerfile explanation](#step-21-dockerfile-explanation)
   - [Step 2.2: Test the Container Locally](#step-22-test-the-container-locally)
+  - [Step 2.2.1: Test the NodeJS container locally](#step-221-test-the-nodejs-container-locally)
 - [Step 3: Create Dockerhub Account and Repository](#step-3-create-dockerhub-account-and-repository)
 - [Step 4: Github Actions Workflow](#step-4-github-actions-workflow)
   - [Step 4.1: Writing CI Pipeline](#step-41-writing-ci-pipeline)
@@ -192,6 +193,8 @@ It will bind your local port 5001 to the container's port 5000.
 
 ### Step 2.2.1: Test the NodeJS container locally [OPTIONAL]
 
+<details><summary><b>Testing the Container</b></summary>
+  
 ```
 docker build -t node-container:0.1 .
 docker run -p 3000:3000 node-container:0.1
@@ -199,6 +202,7 @@ docker run -p 3000:3000 node-container:0.1
 
 <img width="902" alt="Screenshot 2024-05-29 at 12 31 05" src="https://github.com/Saddff2/github-CI/assets/133538823/30edd1d2-63b5-4069-9ced-b8712b861c4d">
 
+</details>
 
 ## **Step 3: Create Dockerhub Account and Repository**
 
@@ -208,6 +212,28 @@ docker run -p 3000:3000 node-container:0.1
 
 >[!NOTE]
 >You need to name the repository the same way as your Docker image.
+
+**Step-by-step**
+<details><summary><b>Click</b></summary>
+  
+1. Signing in
+   
+<img width="473" alt="Screenshot 2024-05-29 at 12 43 10" src="https://github.com/Saddff2/github-CI/assets/133538823/f78ea199-9a7f-4e89-bf47-8874e5ed6564">
+<img width="418" alt="Screenshot 2024-05-29 at 12 39 52" src="https://github.com/Saddff2/github-CI/assets/133538823/4579e575-4b7c-48c8-ae18-ed10090bdbc3">
+
+
+2. Creating repository
+  
+<img width="908" alt="Screenshot 2024-05-29 at 12 40 14" src="https://github.com/Saddff2/github-CI/assets/133538823/935a4de3-08a5-45d6-88ea-3833199d7d8e">
+<img width="742" alt="Screenshot 2024-05-29 at 12 40 31" src="https://github.com/Saddff2/github-CI/assets/133538823/5ed4fc39-42eb-43cd-970b-c5b0304f8a26">
+
+
+3. Repository created
+  
+<img width="1173" alt="Screenshot 2024-05-29 at 12 40 43" src="https://github.com/Saddff2/github-CI/assets/133538823/3062f797-69c8-40ed-8af5-e09b35301475">
+
+</details>
+
 
 ## **Step 4: Github Actions Workflow**
 **Creating CI Pipeline in GitHub Actions**
@@ -246,7 +272,7 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 
 <img width="808" alt="Screenshot 2024-05-29 at 12 07 58" src="https://github.com/Saddff2/github-CI/assets/133538823/136a4762-2b34-4165-b9d5-d36ea1486672">
  
-I will be using 2 environment variables named **IMAGE_NAME** and **DOCKER_REGISTRY**, which are declared directly in the workflow file.
+I will be using 3 environment variables named **IMAGE_NAME**, **DOCKER_REGISTRY** and **APP_PORT**, which are declared directly in the workflow file.
 
 If you need to use a **different registry**, check out [docker/login-action documentation](https://github.com/docker/login-action)
 
@@ -267,7 +293,7 @@ on:
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
-  
+  APP_PORT: 5000
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -307,7 +333,7 @@ jobs:
         
     - name: Run Container
       run: |
-        docker run -d -p 5000:5000 \
+        docker run -d -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
         --name web-app-test \
         ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
         
@@ -319,7 +345,7 @@ jobs:
     - name: Test Web App
       id: test_app
       run:
-        curl -sSf http://localhost:5000 || exit 1
+        curl -sSf http://localhost:${{ env.APP_PORT }} || exit 1
         
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
@@ -349,6 +375,7 @@ on:
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
+  APP_PORT: 5000
 jobs:
   build:
 ```
@@ -366,6 +393,8 @@ There's a lot more specific triggers; check out [**official documentation**](htt
 - **IMAGE_NAME** - name of your image.
 
 - **DOCKER_REGISTRY** - In our case it's Docker Hub, but you can specify other container registry and use it in your workflow, check out [docker/login-action documentation](https://github.com/docker/login-action) to correctly implement it.
+  
+- **APP_PORT** - port of our application, for NodeJS version of the guide, it will be 3000.
 
 ### **Section 2 - running jobs.**
 
@@ -424,7 +453,7 @@ jobs:
         
     - name: Run Container
       run: |
-        docker run -d -p 5000:5000 \
+        docker run -d -p ${{ env.APP_PORT}}:${{ env.APP_PORT}} \
         --name web-app-test \
         ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
         
@@ -436,7 +465,7 @@ jobs:
     - name: Test Web App
       id: test_app
       run:
-        curl -sSf http://localhost:5000 || exit 1
+        curl -sSf http://localhost:${{ env.APP_PORT}} || exit 1
 ```
 
 - **Determine version number** - Use the current date and commit hash to determine the version for the image tag.
