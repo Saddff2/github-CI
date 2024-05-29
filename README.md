@@ -25,7 +25,6 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
 - [Step 2: Dockerfile](#step-2-dockerfile)
   - [Step 2.1: Dockerfile explanation](#step-21-dockerfile-explanation)
   - [Step 2.2: Test the Container Locally](#step-22-test-the-container-locally)
-  - [Step 2.3: [OPTIONAL] Adding Unit Tests with pytest](#step-23-optional-adding-unit-tests-with-pytest)
 - [Step 3: Create Dockerhub Account and Repository](#step-3-create-dockerhub-account-and-repository)
 - [Step 4: Github Actions Workflow](#step-4-github-actions-workflow)
   - [Step 4.1: Writing CI Pipeline](#step-41-writing-ci-pipeline)
@@ -144,45 +143,6 @@ It will bind your local port 5001 to the container's port 5000.
 
 
 <img width="938" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/655a2526-82f6-4d39-b1fb-e9b80cff8995">
-
-### Step 2.3: [OPTIONAL] Adding Unit Tests with pytest
-
-1. Add pytest to requirements.txt
-   ```
-   Flask==2.0.1
-   pytest==8.2.1
-   ```
-2. **Create a Unit Test**:
-   
-Create a new directory named tests in your project root and add a test file named test_app.py:
-
-```
-mkdir tests
-touch tests/test_app.py
-```
-
-3. **Write the Test**:
-
-In tests/test_app.py, add the following test code:
-
-```
-from app import app
-
-def test_home():
-    with app.test_client() as client:
-        response = client.get('/')
-        assert response.status_code == 200
-        assert response.data.decode() == "Hello from Daniel Tsoref"
-```
-
-4. **Update the GitHub Actions Workflow to Run Tests**
-   
-```
-- name: Run Unit Tests
-  id: unit_test
-  run:
-    docker exec -t web-app-test pytest 
-```
 
 ## **Step 3: Create Dockerhub Account and Repository**
 
