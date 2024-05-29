@@ -22,7 +22,9 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
 
 ### Contents
 - [Step 1: Python App](#step-1-python-app)
+- [Step 1.1: NodeJS App](#step-11-nodejs-app-optional)
 - [Step 2: Dockerfile](#step-2-dockerfile)
+- [Step 2.0.1: NodeJS Dockerfile](#step-201-nodejs-dockerfile-optional)
   - [Step 2.1: Dockerfile explanation](#step-21-dockerfile-explanation)
   - [Step 2.2: Test the Container Locally](#step-22-test-the-container-locally)
 - [Step 3: Create Dockerhub Account and Repository](#step-3-create-dockerhub-account-and-repository)
@@ -69,6 +71,27 @@ if __name__ == '__main__':
 
 This is a simple web app that will be running on Flask default port 5000. 
 
+### Step 1.1 NodeJS App [Optional]
+
+<details>
+    <summary><b>NodeJS App Variant</b></summary>
+  
+```
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Hello from Daniel Tsoref');
+});
+
+app.listen(3000, () => {
+    console.log('Server listening on port 3000');
+});
+
+```
+
+</details>
+
 ### Step 2: Dockerfile
 ```
 FROM python:3.12.1-alpine3.19
@@ -81,10 +104,33 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app
 
+EXPOSE 5000
+
 CMD ["python", "app.py"]
 
-EXPOSE 5000
 ```
+### Step 2.0.1: NodeJS Dockerfile [OPTIONAL]
+<details><summary><b>NodeJS Dockerfile Variant</b></summary>
+  
+```
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+</details>
+
+
 ### Step 2.1: Dockerfile explanation
 <details><summary><b>CLICK HERE.</b></summary>
 
@@ -144,6 +190,16 @@ It will bind your local port 5001 to the container's port 5000.
 
 <img width="938" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/655a2526-82f6-4d39-b1fb-e9b80cff8995">
 
+### Step 2.2.1: Test the NodeJS container locally [OPTIONAL]
+
+```
+docker build -t node-container:0.1 .
+docker run -p 3000:3000 node-container:0.1
+```
+
+<img width="902" alt="Screenshot 2024-05-29 at 12 31 05" src="https://github.com/Saddff2/github-CI/assets/133538823/30edd1d2-63b5-4069-9ced-b8712b861c4d">
+
+
 ## **Step 3: Create Dockerhub Account and Repository**
 
 * Go to [hub.docker.com](https://hub.docker.com/signup), you can choose **Create account** or **Continue with Github**.
@@ -187,6 +243,8 @@ So we need to install **QEMU** - open-source hardware virtualization and emulati
 
 1. **DOCKER_USERNAME**  _for **value**, write down your Docker Hub **Username**_
 2. **DOCKER_ACCESS_TOKEN** _for **value**, create a Docker Hub Access Token at **hub.docker.com**->**My Account**->**Security**->**New Access Token**_
+
+<img width="808" alt="Screenshot 2024-05-29 at 12 07 58" src="https://github.com/Saddff2/github-CI/assets/133538823/136a4762-2b34-4165-b9d5-d36ea1486672">
  
 I will be using 2 environment variables named **IMAGE_NAME** and **DOCKER_REGISTRY**, which are declared directly in the workflow file.
 
@@ -327,6 +385,7 @@ jobs:
       with: 
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
 ```
 
 
@@ -424,6 +483,20 @@ jobs:
 ## Conclusion
 
 By following these steps, you can successfully automate the build, test, and push process for multi-arch Docker images using GitHub Actions. This streamlined approach will significantly enhance your CI/CD pipeline, leading to faster development cycles, increased code quality, and broader application reach.
+
+## Final Result
+
+**Here's what our final result might look like:**
+
+### **Workflow Run**
+  
+<img width="1624" alt="Screenshot 2024-05-29 at 12 14 57" src="https://github.com/Saddff2/github-CI/assets/133538823/d14bc29a-19b5-4e02-9d6a-70a489631798">
+
+### **Multi-Arch Image on Docker Hub**
+
+
+<img width="677" alt="Screenshot 2024-05-29 at 12 10 36" src="https://github.com/Saddff2/github-CI/assets/133538823/db90634b-5d70-4eab-a30a-ac9f621d3677">
+
 
 ## Next Steps
 
