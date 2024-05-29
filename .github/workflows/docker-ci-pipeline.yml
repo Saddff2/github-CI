@@ -4,10 +4,11 @@ name: Build Test and Push Mutli Platform Docker Image
 on:
   push:
     branches:
-      - dev
+      - main
 env: 
   IMAGE_NAME: web-app
   DOCKER_REGISTRY: docker.io
+  APP_PORT: 3000
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -46,7 +47,7 @@ jobs:
 
     - name: Run Container
       run: |
-        docker run -d -p 5000:5000 \
+        docker run -d -p ${{ env.APP_PORT}}:${{ env.APP_PORT}} \
         -e BUILD_DATE=${{ env.BUILD_DATE }} \
         --name web-app-test \
         ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}.${{ env.BUILD_NUMBER }}
@@ -59,7 +60,7 @@ jobs:
     - name: Test Web App
       id: test_app
       run:
-        curl -sSf http://localhost:5000 || exit 1
+        curl -sSf http://localhost:${{ env.APP_PORT}} || exit 1
 
     - name: Push Multi Platform Image
       uses: docker/build-push-action@v5 
