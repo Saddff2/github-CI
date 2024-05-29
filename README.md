@@ -48,7 +48,7 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
   
 ## So, What we need?
 
-- **Python App** (or any app that you want)
+- **Python App** (**NodeJS** version is also provided, but you can rewrite Dockerfile for your specific app and this pipeline will work)
 - **Dockerfile**
 - **Dockerhub account** (or any other container registry)
 - **Github Actions Workflow**
