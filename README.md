@@ -1,4 +1,4 @@
-# Build, Test, and Push Multi-Arch Docker Images with GitHub Actions
+  # Build, Test, and Push Multi-Arch Docker Images with GitHub Actions
 
 In today's fast-paced development environment, automating your build, test, and deployment processes is crucial for ensuring efficient and reliable software delivery.
 
@@ -53,7 +53,7 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
 
 ### Step 1: Python App
 
-For this example, I'll be using a simple Flask application written in Python.
+For this example, I will use a simple Flask application written in Python.
 
 ```
 from flask import Flask
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0')
 ```
 
-This is simple web app that will be running on Flask default port 5000. 
+This is a simple web app that will be running on Flask default port 5000. 
 
 ### Step 2: Dockerfile
 ```
