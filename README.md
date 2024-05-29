@@ -2,7 +2,7 @@
 
 In today's fast-paced development environment, automating your build, test, and deployment processes is crucial for ensuring efficient and reliable software delivery.
 
-In this guide, I'll walk you through the process of setting up a continuous integration (CI) pipeline using GitHub Actions to build, test, and push a multi-architecture Docker image to DockerHub. Whether you're new to CI/CD pipelines or looking to enhance your existing workflow, this guide will provide the insights and steps you need to get started.
+In this guide, We'll walk you through the process of setting up a continuous integration (CI) pipeline using GitHub Actions to build, test, and push a multi-architecture Docker image to DockerHub. Whether you're new to CI/CD pipelines or looking to enhance your existing workflow, this guide will provide the insights and steps you need to get started.
 
 ## Why Multi-Arch Docker Images?
 
