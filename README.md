@@ -40,6 +40,7 @@ While **Docker Hub** is a popular choice for storing Docker images, there are ot
     - [Section 3 - Building and Testing](#section-3---building-and-testing)
     - [Section 4 - Building and Pushing final Image](section-4---building-and-pushing-final-image)
 - [Conclusion](#conclusion)
+- [Final Result](#final-result)
 - [Additional Resources](#additional-resources)
 - [Next Steps](#next-steps)
 - [Feedback](#feedback)
