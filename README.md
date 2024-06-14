@@ -1,4 +1,5 @@
   # Build, Test, and Push Multi-Arch Docker Images with GitHub Actions
+<img width="1513" alt="Screenshot" src="https://github.com/Saddff2/github-CI/assets/133538823/72d08777-8ce8-4ac9-a3dd-82cdef6c0a23">
 
 In today's fast-paced development environment, automating your build, test, and deployment processes is crucial for ensuring efficient and reliable software delivery.
 
