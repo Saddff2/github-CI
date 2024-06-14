@@ -587,6 +587,10 @@ jobs:
 - **Waiting for container to start** - This step is not always needed.
 
 - **Test Web App** - Test the app using a simple bash command. If the command does not succeed, it exits from workflow.
+  
+>[!Note]
+>**You can change this step to Unit tests.**
+
 
 
 ### **Section 4 - Building and Pushing final Image.**
